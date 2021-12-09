@@ -1,0 +1,35 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Welcome to Oauth</title>#}
+{#</head>#}
+{#<body>#}
+{#    <h1> This is for successful OAuth screen</h1>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+
+{% load socialaccount %}
+<html>
+
+<head>
+    <title>Google Registration</title>
+</head>
+
+<body>
+    <h1>Google Auth</h1>
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }} !</p>
+    <p>Full Name :  {{ user.socialaccount_set.all.0.extra_data.name  }} !</p>
+    <p>Date Joined: {{ user.socialaccount_set.all.0.date_joined}}</p>
+    <button onclick="location.href='/accounts/logout/'"> Logout </button>
+        <p>Avatar URL: {{ user.socialaccount_set.all.0.get_avatar_url }}</p>
+    {% else %}
+    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    {% endif %}
+    
+</body>
+
+</html>
